@@ -8,12 +8,12 @@ pipeline {
   stages {
     stage('Status') {
       steps {
-        sh 'liquibase status --url="jdbc:mongo://192.168.67.7:5432/mongo?currentSchema=public" --changeLogFile=app-wrapper.xml --username=$MONGODB_INITDB_ROOT_USERNAME --password=MONGODB_INITDB_ROOT_PASSWORD'
+        sh 'liquibase status --url="jdbc:mongo://192.168.67.7:5432/mongo?currentSchema=public" --changeLogFile=app-wrapper.xml --username=$MONGODB_CREDENTIALS_USERNAME --password=MONGODB_CREDENTIALS_PASSWORD'
       }
     }
     stage('Update') {
       steps {
-        sh 'liquibase update --url="jdbc:mongo://192.168.67.7:5432/mongo?currentSchema=public" --changeLogFile=app-wrapper.xml --username=$MONGODB_INITDB_ROOT_USERNAME --password=MONGODB_INITDB_ROOT_PASSWORD'
+        sh 'liquibase update --url="jdbc:mongo://192.168.67.7:5432/mongo?currentSchema=public" --changeLogFile=app-wrapper.xml --username=$MONGODB_CREDENTIALS_USERNAME --password=MONGODB_CREDENTIALS_PASSWORD'
       }
     }
   }
