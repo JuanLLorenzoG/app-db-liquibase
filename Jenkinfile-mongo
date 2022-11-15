@@ -1,0 +1,20 @@
+pipeline {
+  agent {
+    docker { image 'mongo/mongo:latest' }
+  }
+  environment {
+    POSTGRES_CREDENTIALS=credentials('jenkins_mongo')
+  }
+  stages {
+    stage('Status') {
+      steps {
+        sh 'liquibase status --url="jdbc:mongo://192.168.67.7:5432/mongo?currentSchema=public" --changeLogFile=app-wrapper.xml --username=$MONGODB_INITDB_ROOT_USERNAME --password=MONGODB_INITDB_ROOT_PASSWORD'
+      }
+    }
+    stage('Update') {
+      steps {
+        sh 'liquibase update --url="jdbc:mongo://192.168.67.7:5432/mongo?currentSchema=public" --changeLogFile=app-wrapper.xml --username=$MONGODB_INITDB_ROOT_USERNAME --password=MONGODB_INITDB_ROOT_PASSWORD'
+      }
+    }
+  }
+}
