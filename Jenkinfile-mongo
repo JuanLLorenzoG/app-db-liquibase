@@ -1,6 +1,6 @@
 pipeline {
   agent {
-    docker { image 'mongo/mongo:latest' }
+    docker { image 'mongodb/mongo:latest' }
   }
   environment {
     POSTGRES_CREDENTIALS=credentials('jenkins_mongo')
